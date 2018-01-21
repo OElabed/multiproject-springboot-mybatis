@@ -1,0 +1,25 @@
+apply plugin: 'org.springframework.boot'
+
+
+jar {
+    baseName = project.name
+    version =  project.version
+}
+
+
+dependencies {
+    
+    compile project(":model")
+    compile project(":service-1")
+	compile project(":service-2")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${MYBATIS_BOOT_VERSION}")
+ 	
+ 	//testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:${MYBATIS_BOOT_VERSION}")
+
+    // RUNTIME    
+    runtime("com.h2database:h2")
+
+}

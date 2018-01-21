@@ -1,0 +1,100 @@
+buildscript {
+    ext {
+        SPRING_BOOT_VERSION = '1.5.9.RELEASE'
+        MYBATIS_BOOT_VERSION = '1.3.0'
+        JUNIT_PLATFORM_VERSION = '1.0.3'
+        JUNIT_JUPITER_VERSION = '5.0.3'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${SPRING_BOOT_VERSION}")
+        classpath("org.junit.platform:junit-platform-gradle-plugin:${JUNIT_PLATFORM_VERSION}")   
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    dependencies {
+        
+        compile("org.springframework.boot:spring-boot-devtools")
+        // TEST
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}")
+
+		// Only needed to run tests in an IntelliJ IDEA that bundles an older version
+		testRuntime("org.junit.platform:junit-platform-launcher:${JUNIT_PLATFORM_VERSION}")
+		testRuntime("org.junit.platform:junit-platform-runner:${JUNIT_PLATFORM_VERSION}")
+		testRuntime("org.junit.jupiter:junit-jupiter-engine:${JUNIT_JUPITER_VERSION}")
+        testRuntime("org.junit.vintage:junit-vintage-engine:4.12.3")
+
+    }
+
+
+
+
+    def coverageSourceDirs = [
+        'src/main/java'
+    ]
+
+    jacocoTestReport {
+        additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
+        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+        classDirectories =  files(sourceSets.main.output)
+            
+        reports {
+            csv.enabled false
+            html{
+            enabled true
+            destination "${buildDir}/reports/jacoco"
+            }
+            xml.enabled false
+        }
+    }
+
+    test.finalizedBy(project.tasks.jacocoTestReport)
+}
+
+task testReport(type: TestReport, group: 'Build') {
+  destinationDir = file("${buildDir}/reports/allTests")
+}
+
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+  dependsOn = subprojects.test
+
+  additionalSourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs)
+  sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+  classDirectories = files(subprojects.sourceSets.main.output)
+  executionData = files(subprojects.jacocoTestReport.executionData)
+
+  reports {
+    html.enabled = true
+    xml.enabled = true
+  }
+
+  doFirst {
+    executionData = files(executionData.findAll { it.exists() })
+  }
+}
+
+task run {
+    dependsOn ':web:bootRun'
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
+}
