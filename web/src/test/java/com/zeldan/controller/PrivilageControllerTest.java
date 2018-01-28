@@ -19,7 +19,7 @@ import com.zeldan.model.Privilege;
 import com.zeldan.repository.PrivilegeRepository;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = PrivilageController.class, secure = false)
+@WebMvcTest(value = PrivilegeController.class, secure = false)
 public class PrivilageControllerTest {
 
 	@Autowired

@@ -7,8 +7,18 @@ public class Account {
     private String username;
 
     private String password;
+    
+    private boolean enabled = true;
 
-    public Account() {
+    public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Account() {
 
     }
 

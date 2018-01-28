@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeldan.security.repository.mybatis.AccountMapper">
+
+	<resultMap type="com.zeldan.model.Account" id="accountMap">
+		<id property="id" column="ID" />
+		<result property="username" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+	</resultMap>
+	<select id="findByUsername" resultMap="accountMap">
+		select
+			ID,
+			USERNAME,
+			PASSWORD
+		from
+			authority
+		where
+			USERNAME = #{name}
+	</select>
+</mapper>

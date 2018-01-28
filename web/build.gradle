@@ -12,6 +12,7 @@ dependencies {
     compile project(":model")
     compile project(":service-1")
 	compile project(":service-2")
+	compile project(":security")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${MYBATIS_BOOT_VERSION}")

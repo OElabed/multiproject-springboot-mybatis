@@ -31,6 +31,10 @@ subprojects {
     dependencies {
         
         compile("org.springframework.boot:spring-boot-devtools")
+
+        compile('io.springfox:springfox-swagger2:2.7.0')
+        compile('io.springfox:springfox-swagger-ui:2.7.0')
+        
         // TEST
         testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.junit.jupiter:junit-jupiter-api:${JUNIT_JUPITER_VERSION}")

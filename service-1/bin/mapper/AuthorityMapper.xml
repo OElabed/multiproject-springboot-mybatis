@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeldan.service1.repository.mybatis.AuthorityMapper">
+    <select id="selectAuthorityById" resultType="com.zeldan.model.Authority">
+        select * from authority where id = #{id}
+    </select>
+</mapper>

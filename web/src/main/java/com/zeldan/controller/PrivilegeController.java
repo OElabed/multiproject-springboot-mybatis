@@ -8,13 +8,14 @@ import com.zeldan.model.Privilege;
 import com.zeldan.repository.PrivilegeRepository;
 
 @RestController
-public class PrivilageController {
-	
+public class PrivilegeController {
+
 	@Autowired
 	private PrivilegeRepository repository;
 
-    @GetMapping("/api/privilege")
-    public Privilege getPrivilege() {
-        return repository.selectPrivilegeById(1);
-    }
+	@GetMapping("/api/privilege")
+	public Privilege getPrivilege() {
+		return repository.selectPrivilegeById(1);
+	}
+
 }
